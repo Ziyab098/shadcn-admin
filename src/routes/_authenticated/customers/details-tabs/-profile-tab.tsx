@@ -62,7 +62,7 @@ function DetailCell({
 }) {
   return (
     <div className={cn('flex flex-col gap-1 p-4', className)}>
-      <div className='text-base font-bold'>{value}</div>
+      <div className='text-base font-medium'>{value}</div>
       <div className='text-sm font-medium text-muted-foreground'>{label}</div>
     </div>
   )

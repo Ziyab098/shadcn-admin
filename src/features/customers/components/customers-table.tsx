@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate as useRouterNavigate } from '@tanstack/react-router'
 import {
   type SortingState,
   flexRender,
@@ -61,6 +62,7 @@ const walletLabels: Record<(typeof walletStatusValues)[number], string> = {
 
 export function CustomersTable({ data, search, navigate }: CustomersTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
+  const rowNavigate = useRouterNavigate()
 
   const {
     globalFilter = '',
@@ -193,7 +195,7 @@ export function CustomersTable({ data, search, navigate }: CustomersTableProps) 
       </div>
 
       <div className='overflow-hidden rounded-none border'>
-        <Table className='[&_th]:h-10 [&_th]:px-4 [&_th]:text-sm [&_th]:font-semibold [&_th]:text-muted-foreground [&_td]:px-4 [&_td]:py-2.5 [&_td]:text-sm'>
+        <Table className='[&_th]:h-10 [&_th]:px-4 [&_th]:text-sm [&_th]:font-medium [&_th]:text-muted-foreground [&_td]:px-4 [&_td]:py-2.5 [&_td]:text-sm'>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className='hover:bg-transparent'>
@@ -221,7 +223,16 @@ export function CustomersTable({ data, search, navigate }: CustomersTableProps) 
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} className='hover:bg-transparent'>
+                <TableRow
+                  key={row.id}
+                  className='hover:bg-transparent cursor-pointer'
+                  onClick={() =>
+                    rowNavigate({
+                      to: '/customers/details',
+                      search: { pk: row.original.pk },
+                    })
+                  }
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}

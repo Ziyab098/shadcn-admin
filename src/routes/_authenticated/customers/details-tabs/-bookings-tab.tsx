@@ -9,6 +9,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Badge } from '@/components/ui/badge'
 import { DataTableColumnHeader } from '@/components/data-table'
 import { Input } from '@/components/ui/input'
@@ -101,10 +102,23 @@ export function CustomerBookingsTab() {
   const columns = useMemo<ColumnDef<CustomerBooking>[]>(
     () => [
       {
+        id: 'select',
+        header: () => <Checkbox checked={false} aria-label='Select all' />,
+        cell: () => (
+          <Checkbox checked={false} aria-label='Select booking' onClick={(e) => e.stopPropagation()} />
+        ),
+        meta: { thClassName: 'w-10', tdClassName: '' },
+        enableSorting: false,
+      },
+      {
         accessorKey: 'pk',
         header: ({ column }) => <DataTableColumnHeader column={column} title='Pk' />,
-        cell: ({ row }) => <span className='text-sm'>{row.getValue('pk')}</span>,
-        meta: { thClassName: 'w-[72px]' },
+        cell: ({ row }) => (
+          <span className='text-base font-semibold text-foreground'>
+            {row.getValue('pk')}
+          </span>
+        ),
+        meta: { thClassName: 'w-[72px] text-foreground' },
         enableSorting: false,
       },
       {
@@ -232,6 +246,10 @@ export function CustomerBookingsTab() {
 
   const [detailsOpen, setDetailsOpen] = useState(false)
   const [selected, setSelected] = useState<CustomerBooking | null>(null)
+  const openDetails = (booking: CustomerBooking) => {
+    setSelected(booking)
+    setDetailsOpen(true)
+  }
 
   return (
     <div className='flex flex-1 flex-col gap-4 text-sm'>
@@ -319,7 +337,11 @@ export function CustomerBookingsTab() {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} className='hover:bg-transparent'>
+                <TableRow
+                  key={row.id}
+                  className='hover:bg-transparent cursor-pointer'
+                  onClick={() => openDetails(row.original)}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
@@ -333,9 +355,9 @@ export function CustomerBookingsTab() {
                         <Button
                           variant='link'
                           className='px-0 text-foreground hover:no-underline focus-visible:no-underline active:no-underline'
-                          onClick={() => {
-                            setSelected(row.original)
-                            setDetailsOpen(true)
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            openDetails(row.original)
                           }}
                         >
                           {row.original.bookingNumber}

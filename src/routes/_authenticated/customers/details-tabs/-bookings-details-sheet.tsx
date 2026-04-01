@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Sheet, SheetContent } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { Check, ExternalLink, Folder } from 'lucide-react'
 
@@ -79,6 +79,10 @@ export function CustomerBookingDetailsSheet({
         side='right'
         className='sm:max-w-md overflow-hidden [&_[data-slot="sheet-close"]]:hidden'
       >
+        <SheetTitle className='sr-only'>Booking details</SheetTitle>
+        <SheetDescription className='sr-only'>
+          View booking details and related information
+        </SheetDescription>
         <div className='flex items-center justify-between border-b px-4 py-3'>
           <div className='min-w-0 flex-1 truncate text-sm font-semibold text-muted-foreground'>
             Details

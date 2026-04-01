@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
+import { AddBlockDialog } from '@/routes/_authenticated/workers/-add-block-dialog'
+import { AddViolationDialog } from '@/routes/_authenticated/workers/-add-violation-dialog'
 import {
   Select,
   SelectContent,
@@ -31,7 +33,7 @@ export const Route = createFileRoute('/_authenticated/workers/')({
 type WorkerStatus = 'verified' | 'pending' | 'unverified'
 type WorkerState = 'active' | 'inactive' | 'blocked'
 
-type Worker = {
+export type Worker = {
   pk: number
   name: string
   phone: string
@@ -109,7 +111,14 @@ function WorkersRoute() {
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState<WorkerStatus | 'all'>('all')
   const [state, setState] = useState<WorkerState | 'all'>('all')
-  const [selected, setSelected] = useState<Record<number, boolean>>({})
+  const [blockOpen, setBlockOpen] = useState(false)
+  const [blockWorkerPk, setBlockWorkerPk] = useState<number | undefined>(undefined)
+  const [violationOpen, setViolationOpen] = useState(false)
+
+  const openBlockModal = (pk?: number) => {
+    setBlockWorkerPk(pk)
+    setBlockOpen(true)
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -132,21 +141,26 @@ function WorkersRoute() {
     return { activeWorkers, blockedWorkers, totalViolations }
   }, [])
 
-  const allChecked = filtered.length > 0 && filtered.every((w) => selected[w.pk])
-  const someChecked = filtered.some((w) => selected[w.pk]) && !allChecked
 
   return (
     <Page
       title='Workers'
       fluid
-      className='font-inter px-4 py-4 sm:px-6 sm:py-5 lg:px-10 [&>div>div>h1]:text-xl [&>div>div>h1]:font-semibold'
+      className='font-inter px-4 py-4 sm:px-6 sm:py-5 lg:px-10 [&>div>div>h1]:text-xl [&>div>div>h1]:font-medium'
       actions={
         <>
-          <Button variant='outline' className='h-9 gap-2 rounded-sm bg-card'>
+          <Button
+            variant='outline'
+            className='h-9 gap-2 rounded-sm bg-card'
+            onClick={() => openBlockModal()}
+          >
             <UserPlus className='size-4' />
             Add Block
           </Button>
-          <Button className='h-9 gap-2 rounded-sm bg-[rgb(24,24,27)] text-white hover:bg-[rgb(24,24,27)]/90'>
+          <Button
+            className='h-9 gap-2 rounded-sm bg-[rgb(24,24,27)] text-white hover:bg-[rgb(24,24,27)]/90'
+            onClick={() => setViolationOpen(true)}
+          >
             <TriangleAlert className='size-4' />
             Add Violation
           </Button>
@@ -204,58 +218,44 @@ function WorkersRoute() {
         </div>
 
         <div className='overflow-hidden rounded-none border'>
-          <Table className='[&_th]:h-10 [&_th]:px-4 [&_th]:text-sm [&_th]:font-semibold [&_th]:text-muted-foreground [&_td]:px-4 [&_td]:py-2.5 [&_td]:text-sm'>
+          <Table className='[&_th]:h-10 [&_th]:px-4 [&_th]:text-sm [&_th]:font-medium [&_th]:text-muted-foreground [&_td]:px-4 [&_td]:py-2.5 [&_td]:text-sm'>
             <TableHeader>
-              <TableRow className='hover:bg-transparent'>
+              <TableRow className='hover:bg-transparent data-[state=selected]:bg-transparent'>
                 <TableHead className='w-10 bg-card'>
-                  <Checkbox
-                    checked={allChecked || (someChecked ? 'indeterminate' : false)}
-                    onCheckedChange={(checked) => {
-                      const isChecked = checked === true
-                      setSelected((prev) => {
-                        const next = { ...prev }
-                        for (const w of filtered) {
-                          next[w.pk] = isChecked
-                        }
-                        return next
-                      })
-                    }}
-                    aria-label='Select all'
-                  />
+                  <Checkbox checked={false} aria-label='Select all' />
                 </TableHead>
-                <TableHead className='w-20 bg-card'>PK</TableHead>
-                <TableHead className='min-w-[180px] bg-card'>Name</TableHead>
-                <TableHead className='w-32 bg-card'>Status</TableHead>
-                <TableHead className='w-24 bg-card'>Violations</TableHead>
-                <TableHead className='w-24 bg-card'>Blocks</TableHead>
-                <TableHead className='w-28 bg-card'>State</TableHead>
-                <TableHead className='min-w-[180px] bg-card'>Date Joined</TableHead>
+                <TableHead className='w-20 bg-card text-foreground'>PK</TableHead>
+                <TableHead className='min-w-[180px] bg-card border-s border-border/60'>
+                  Name
+                </TableHead>
+                <TableHead className='w-32 bg-card border-s border-border/60'>Status</TableHead>
+                <TableHead className='w-24 bg-card border-s border-border/60'>
+                  Violations
+                </TableHead>
+                <TableHead className='w-24 bg-card border-s border-border/60'>Blocks</TableHead>
+                <TableHead className='w-28 bg-card border-s border-border/60'>State</TableHead>
+                <TableHead className='min-w-[180px] bg-card border-s border-border/60'>
+                  Date Joined
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filtered.length > 0 ? (
                 filtered.map((w) => (
-                  <TableRow key={w.pk} className='hover:bg-transparent'>
+                  <TableRow key={w.pk} className='hover:bg-transparent data-[state=selected]:bg-transparent'>
                     <TableCell className='bg-card'>
-                      <Checkbox
-                        checked={Boolean(selected[w.pk])}
-                        onCheckedChange={(checked) =>
-                          setSelected((prev) => ({
-                            ...prev,
-                            [w.pk]: checked === true,
-                          }))
-                        }
-                        aria-label={`Select worker ${w.pk}`}
-                      />
+                      <Checkbox checked={false} aria-label={`Select worker ${w.pk}`} />
                     </TableCell>
-                    <TableCell className='bg-card'>{w.pk}</TableCell>
-                    <TableCell className='bg-card'>
-                      <div className='flex flex-col'>
-                        <div className='font-medium text-foreground'>{w.name}</div>
-                        <div className='text-muted-foreground'>{w.phone}</div>
+                    <TableCell className='bg-card text-foreground font-medium text-base'>
+                      {w.pk}
+                    </TableCell>
+                    <TableCell className='bg-card border-s border-border/60'>
+                      <div className='flex items-center gap-1.5'>
+                        <span className='font-medium text-foreground'>{w.name}</span>
+                        <span className='text-muted-foreground'>({w.phone})</span>
                       </div>
                     </TableCell>
-                    <TableCell className='bg-card'>
+                    <TableCell className='bg-card border-s border-border/60'>
                       <Badge
                         variant='secondary'
                         className={cn('font-medium', statusBadgeClasses[w.status])}
@@ -263,9 +263,11 @@ function WorkersRoute() {
                         {statusLabels[w.status]}
                       </Badge>
                     </TableCell>
-                    <TableCell className='bg-card'>{w.violations}</TableCell>
-                    <TableCell className='bg-card'>{w.blocks}</TableCell>
-                    <TableCell className='bg-card'>
+                    <TableCell className='bg-card border-s border-border/60'>
+                      {w.violations}
+                    </TableCell>
+                    <TableCell className='bg-card border-s border-border/60'>{w.blocks}</TableCell>
+                    <TableCell className='bg-card border-s border-border/60'>
                       <Badge
                         variant='secondary'
                         className={cn('font-medium', stateBadgeClasses[w.state])}
@@ -273,7 +275,9 @@ function WorkersRoute() {
                         {stateLabels[w.state]}
                       </Badge>
                     </TableCell>
-                    <TableCell className='bg-card'>{w.dateJoined}</TableCell>
+                    <TableCell className='bg-card border-s border-border/60'>
+                      {w.dateJoined}
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (
@@ -287,6 +291,20 @@ function WorkersRoute() {
           </Table>
         </div>
       </div>
+
+      <AddBlockDialog
+        open={blockOpen}
+        onOpenChange={setBlockOpen}
+        workers={workers}
+        initialWorkerPk={blockWorkerPk}
+      />
+
+      <AddViolationDialog
+        key={violationOpen ? 'violation-open' : 'violation-closed'}
+        open={violationOpen}
+        onOpenChange={setViolationOpen}
+        workers={workers}
+      />
     </Page>
   )
 }
@@ -296,7 +314,7 @@ function SummaryCard({ value, label }: { value: string; label: string }) {
     <Card className='rounded-sm border-0 bg-card py-4 shadow-none'>
       <CardContent className='px-4'>
         <div className='flex flex-col gap-1'>
-          <div className='text-base font-semibold'>{value}</div>
+          <div className='text-base font-medium'>{value}</div>
           <div className='text-sm text-muted-foreground'>{label}</div>
         </div>
       </CardContent>

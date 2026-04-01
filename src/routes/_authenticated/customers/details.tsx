@@ -60,7 +60,7 @@ function CustomerDetailsRoute() {
               <User className='size-4 text-muted-foreground' />
             </div>
             <div className='flex flex-col gap-1'>
-              <div className='text-base font-bold'>{customer?.phone ?? '—'}</div>
+              <div className='text-base font-medium'>{customer?.phone ?? '—'}</div>
               <div className='flex items-center gap-2'>
                 <Badge
                   variant='secondary'
@@ -111,20 +111,20 @@ function CustomerDetailsRoute() {
           }
           className='gap-4'
         >
-          <TabsList className='rounded-xl bg-muted/60'>
-            <TabsTrigger value='profile' className='rounded-sm font-semibold'>
+          <TabsList className='rounded-sm bg-slate-100 dark:bg-muted/60'>
+            <TabsTrigger value='profile' className='rounded-sm font-medium'>
               Profile
             </TabsTrigger>
-            <TabsTrigger value='cars' className='rounded-sm font-semibold'>
+            <TabsTrigger value='cars' className='rounded-sm font-medium'>
               Cars
             </TabsTrigger>
-            <TabsTrigger value='addresses' className='rounded-sm font-semibold'>
+            <TabsTrigger value='addresses' className='rounded-sm font-medium'>
               Addresses
             </TabsTrigger>
-            <TabsTrigger value='bookings' className='rounded-sm font-semibold'>
+            <TabsTrigger value='bookings' className='rounded-sm font-medium'>
               Bookings
             </TabsTrigger>
-            <TabsTrigger value='wallet' className='rounded-sm font-semibold'>
+            <TabsTrigger value='wallet' className='rounded-sm font-medium'>
               Wallet
             </TabsTrigger>
           </TabsList>
@@ -158,8 +158,8 @@ function SummaryCard({ value, label }: { value: string; label: string }) {
     <Card className='rounded-sm border-0 bg-card py-4 shadow-none'>
       <CardContent className='px-4'>
         <div className='flex flex-col gap-1'>
-          <div className='text-base font-bold'>{value}</div>
-          <div className='text-sm font-medium text-muted-foreground'>{label}</div>
+          <div className='text-base font-medium'>{value}</div>
+          <div className='text-sm font-normal text-muted-foreground'>{label}</div>
         </div>
       </CardContent>
     </Card>
