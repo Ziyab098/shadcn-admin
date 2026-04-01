@@ -18,7 +18,7 @@
   }
 
   /* Override Radix scroll locking for sticky headers */
-  body[data-scroll-locked] {
+  body[data-scroll-locked]:not([data-layout='app']) {
     overflow: unset !important;
   }
 
@@ -26,6 +26,33 @@
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;
+  }
+
+  a,
+  a:hover,
+  a:active,
+  a:focus,
+  a:visited {
+    text-decoration: none;
+    text-decoration-line: none;
+  }
+
+  [x-apple-data-detectors],
+  a[x-apple-data-detectors],
+  a[x-apple-data-detectors] *,
+  a[href^='tel:'],
+  a[href^='tel:'] *,
+  a[href^='sms:'],
+  a[href^='sms:'] *,
+  a[href^='mailto:'],
+  a[href^='mailto:'] * {
+    color: inherit !important;
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: inherit;
   }
 
   /* Prevent focus zoom on mobile devices */

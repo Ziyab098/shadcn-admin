@@ -25,11 +25,19 @@ import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-p
 import { Route as ClerkAuthenticatedRouteRouteImport } from './routes/clerk/_authenticated/route'
 import { Route as ClerkauthRouteRouteImport } from './routes/clerk/(auth)/route'
 import { Route as AuthenticatedSettingsRouteRouteImport } from './routes/_authenticated/settings/route'
+import { Route as AuthenticatedWorkersIndexRouteImport } from './routes/_authenticated/workers/index'
+import { Route as AuthenticatedViolationsIndexRouteImport } from './routes/_authenticated/violations/index'
 import { Route as AuthenticatedUsersIndexRouteImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
+import { Route as AuthenticatedPartnersIndexRouteImport } from './routes/_authenticated/partners/index'
+import { Route as AuthenticatedLiveActivityIndexRouteImport } from './routes/_authenticated/live-activity/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
+import { Route as AuthenticatedCustomersIndexRouteImport } from './routes/_authenticated/customers/index'
+import { Route as AuthenticatedCoverageAreasIndexRouteImport } from './routes/_authenticated/coverage-areas/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
+import { Route as AuthenticatedCampaignsIndexRouteImport } from './routes/_authenticated/campaigns/index'
+import { Route as AuthenticatedBlocksIndexRouteImport } from './routes/_authenticated/blocks/index'
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
 import { Route as ClerkAuthenticatedUserManagementRouteImport } from './routes/clerk/_authenticated/user-management'
 import { Route as ClerkauthSignUpRouteImport } from './routes/clerk/(auth)/sign-up'
@@ -39,6 +47,8 @@ import { Route as AuthenticatedSettingsDisplayRouteImport } from './routes/_auth
 import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_authenticated/settings/appearance'
 import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedCustomersDetailsRouteImport } from './routes/_authenticated/customers/details'
+import { Route as AuthenticatedBookingsDetailsRouteImport } from './routes/_authenticated/bookings/details'
 
 const ClerkRouteRoute = ClerkRouteRouteImport.update({
   id: '/clerk',
@@ -118,6 +128,18 @@ const AuthenticatedSettingsRouteRoute =
     path: '/settings',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedWorkersIndexRoute =
+  AuthenticatedWorkersIndexRouteImport.update({
+    id: '/workers/',
+    path: '/workers/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedViolationsIndexRoute =
+  AuthenticatedViolationsIndexRouteImport.update({
+    id: '/violations/',
+    path: '/violations/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexRouteImport.update({
   id: '/users/',
   path: '/users/',
@@ -134,10 +156,34 @@ const AuthenticatedSettingsIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedSettingsRouteRoute,
   } as any)
+const AuthenticatedPartnersIndexRoute =
+  AuthenticatedPartnersIndexRouteImport.update({
+    id: '/partners/',
+    path: '/partners/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLiveActivityIndexRoute =
+  AuthenticatedLiveActivityIndexRouteImport.update({
+    id: '/live-activity/',
+    path: '/live-activity/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedHelpCenterIndexRoute =
   AuthenticatedHelpCenterIndexRouteImport.update({
     id: '/help-center/',
     path: '/help-center/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedCustomersIndexRoute =
+  AuthenticatedCustomersIndexRouteImport.update({
+    id: '/customers/',
+    path: '/customers/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedCoverageAreasIndexRoute =
+  AuthenticatedCoverageAreasIndexRouteImport.update({
+    id: '/coverage-areas/',
+    path: '/coverage-areas/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
@@ -145,6 +191,18 @@ const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   path: '/chats/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedCampaignsIndexRoute =
+  AuthenticatedCampaignsIndexRouteImport.update({
+    id: '/campaigns/',
+    path: '/campaigns/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedBlocksIndexRoute =
+  AuthenticatedBlocksIndexRouteImport.update({
+    id: '/blocks/',
+    path: '/blocks/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexRouteImport.update({
   id: '/apps/',
   path: '/apps/',
@@ -196,6 +254,18 @@ const AuthenticatedErrorsErrorRoute =
     path: '/errors/$error',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCustomersDetailsRoute =
+  AuthenticatedCustomersDetailsRouteImport.update({
+    id: '/customers/details',
+    path: '/customers/details',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedBookingsDetailsRoute =
+  AuthenticatedBookingsDetailsRouteImport.update({
+    id: '/bookings/details',
+    path: '/bookings/details',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -211,6 +281,8 @@ export interface FileRoutesByFullPath {
   '/404': typeof errors404Route
   '/500': typeof errors500Route
   '/503': typeof errors503Route
+  '/bookings/details': typeof AuthenticatedBookingsDetailsRoute
+  '/customers/details': typeof AuthenticatedCustomersDetailsRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
@@ -220,11 +292,19 @@ export interface FileRoutesByFullPath {
   '/clerk/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
   '/apps/': typeof AuthenticatedAppsIndexRoute
+  '/blocks/': typeof AuthenticatedBlocksIndexRoute
+  '/campaigns/': typeof AuthenticatedCampaignsIndexRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
+  '/coverage-areas/': typeof AuthenticatedCoverageAreasIndexRoute
+  '/customers/': typeof AuthenticatedCustomersIndexRoute
   '/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/live-activity/': typeof AuthenticatedLiveActivityIndexRoute
+  '/partners/': typeof AuthenticatedPartnersIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks/': typeof AuthenticatedTasksIndexRoute
   '/users/': typeof AuthenticatedUsersIndexRoute
+  '/violations/': typeof AuthenticatedViolationsIndexRoute
+  '/workers/': typeof AuthenticatedWorkersIndexRoute
 }
 export interface FileRoutesByTo {
   '/clerk': typeof ClerkAuthenticatedRouteRouteWithChildren
@@ -239,6 +319,8 @@ export interface FileRoutesByTo {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
+  '/bookings/details': typeof AuthenticatedBookingsDetailsRoute
+  '/customers/details': typeof AuthenticatedCustomersDetailsRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
@@ -248,11 +330,19 @@ export interface FileRoutesByTo {
   '/clerk/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
+  '/blocks': typeof AuthenticatedBlocksIndexRoute
+  '/campaigns': typeof AuthenticatedCampaignsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
+  '/coverage-areas': typeof AuthenticatedCoverageAreasIndexRoute
+  '/customers': typeof AuthenticatedCustomersIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/live-activity': typeof AuthenticatedLiveActivityIndexRoute
+  '/partners': typeof AuthenticatedPartnersIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/violations': typeof AuthenticatedViolationsIndexRoute
+  '/workers': typeof AuthenticatedWorkersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -272,6 +362,8 @@ export interface FileRoutesById {
   '/(errors)/500': typeof errors500Route
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/bookings/details': typeof AuthenticatedBookingsDetailsRoute
+  '/_authenticated/customers/details': typeof AuthenticatedCustomersDetailsRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
@@ -281,11 +373,19 @@ export interface FileRoutesById {
   '/clerk/(auth)/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/_authenticated/user-management': typeof ClerkAuthenticatedUserManagementRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
+  '/_authenticated/blocks/': typeof AuthenticatedBlocksIndexRoute
+  '/_authenticated/campaigns/': typeof AuthenticatedCampaignsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
+  '/_authenticated/coverage-areas/': typeof AuthenticatedCoverageAreasIndexRoute
+  '/_authenticated/customers/': typeof AuthenticatedCustomersIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/_authenticated/live-activity/': typeof AuthenticatedLiveActivityIndexRoute
+  '/_authenticated/partners/': typeof AuthenticatedPartnersIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/violations/': typeof AuthenticatedViolationsIndexRoute
+  '/_authenticated/workers/': typeof AuthenticatedWorkersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -303,6 +403,8 @@ export interface FileRouteTypes {
     | '/404'
     | '/500'
     | '/503'
+    | '/bookings/details'
+    | '/customers/details'
     | '/errors/$error'
     | '/settings/account'
     | '/settings/appearance'
@@ -312,11 +414,19 @@ export interface FileRouteTypes {
     | '/clerk/sign-up'
     | '/clerk/user-management'
     | '/apps/'
+    | '/blocks/'
+    | '/campaigns/'
     | '/chats/'
+    | '/coverage-areas/'
+    | '/customers/'
     | '/help-center/'
+    | '/live-activity/'
+    | '/partners/'
     | '/settings/'
     | '/tasks/'
     | '/users/'
+    | '/violations/'
+    | '/workers/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/clerk'
@@ -331,6 +441,8 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/'
+    | '/bookings/details'
+    | '/customers/details'
     | '/errors/$error'
     | '/settings/account'
     | '/settings/appearance'
@@ -340,11 +452,19 @@ export interface FileRouteTypes {
     | '/clerk/sign-up'
     | '/clerk/user-management'
     | '/apps'
+    | '/blocks'
+    | '/campaigns'
     | '/chats'
+    | '/coverage-areas'
+    | '/customers'
     | '/help-center'
+    | '/live-activity'
+    | '/partners'
     | '/settings'
     | '/tasks'
     | '/users'
+    | '/violations'
+    | '/workers'
   id:
     | '__root__'
     | '/_authenticated'
@@ -363,6 +483,8 @@ export interface FileRouteTypes {
     | '/(errors)/500'
     | '/(errors)/503'
     | '/_authenticated/'
+    | '/_authenticated/bookings/details'
+    | '/_authenticated/customers/details'
     | '/_authenticated/errors/$error'
     | '/_authenticated/settings/account'
     | '/_authenticated/settings/appearance'
@@ -372,11 +494,19 @@ export interface FileRouteTypes {
     | '/clerk/(auth)/sign-up'
     | '/clerk/_authenticated/user-management'
     | '/_authenticated/apps/'
+    | '/_authenticated/blocks/'
+    | '/_authenticated/campaigns/'
     | '/_authenticated/chats/'
+    | '/_authenticated/coverage-areas/'
+    | '/_authenticated/customers/'
     | '/_authenticated/help-center/'
+    | '/_authenticated/live-activity/'
+    | '/_authenticated/partners/'
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
+    | '/_authenticated/violations/'
+    | '/_authenticated/workers/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -508,6 +638,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/workers/': {
+      id: '/_authenticated/workers/'
+      path: '/workers'
+      fullPath: '/workers/'
+      preLoaderRoute: typeof AuthenticatedWorkersIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/violations/': {
+      id: '/_authenticated/violations/'
+      path: '/violations'
+      fullPath: '/violations/'
+      preLoaderRoute: typeof AuthenticatedViolationsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/users/': {
       id: '/_authenticated/users/'
       path: '/users'
@@ -529,6 +673,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRouteRoute
     }
+    '/_authenticated/partners/': {
+      id: '/_authenticated/partners/'
+      path: '/partners'
+      fullPath: '/partners/'
+      preLoaderRoute: typeof AuthenticatedPartnersIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/live-activity/': {
+      id: '/_authenticated/live-activity/'
+      path: '/live-activity'
+      fullPath: '/live-activity/'
+      preLoaderRoute: typeof AuthenticatedLiveActivityIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/help-center/': {
       id: '/_authenticated/help-center/'
       path: '/help-center'
@@ -536,11 +694,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHelpCenterIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/customers/': {
+      id: '/_authenticated/customers/'
+      path: '/customers'
+      fullPath: '/customers/'
+      preLoaderRoute: typeof AuthenticatedCustomersIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/coverage-areas/': {
+      id: '/_authenticated/coverage-areas/'
+      path: '/coverage-areas'
+      fullPath: '/coverage-areas/'
+      preLoaderRoute: typeof AuthenticatedCoverageAreasIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
       path: '/chats'
       fullPath: '/chats/'
       preLoaderRoute: typeof AuthenticatedChatsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/campaigns/': {
+      id: '/_authenticated/campaigns/'
+      path: '/campaigns'
+      fullPath: '/campaigns/'
+      preLoaderRoute: typeof AuthenticatedCampaignsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/blocks/': {
+      id: '/_authenticated/blocks/'
+      path: '/blocks'
+      fullPath: '/blocks/'
+      preLoaderRoute: typeof AuthenticatedBlocksIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/apps/': {
@@ -606,6 +792,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/customers/details': {
+      id: '/_authenticated/customers/details'
+      path: '/customers/details'
+      fullPath: '/customers/details'
+      preLoaderRoute: typeof AuthenticatedCustomersDetailsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/bookings/details': {
+      id: '/_authenticated/bookings/details'
+      path: '/bookings/details'
+      fullPath: '/bookings/details'
+      preLoaderRoute: typeof AuthenticatedBookingsDetailsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -635,23 +835,43 @@ const AuthenticatedSettingsRouteRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedBookingsDetailsRoute: typeof AuthenticatedBookingsDetailsRoute
+  AuthenticatedCustomersDetailsRoute: typeof AuthenticatedCustomersDetailsRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
+  AuthenticatedBlocksIndexRoute: typeof AuthenticatedBlocksIndexRoute
+  AuthenticatedCampaignsIndexRoute: typeof AuthenticatedCampaignsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
+  AuthenticatedCoverageAreasIndexRoute: typeof AuthenticatedCoverageAreasIndexRoute
+  AuthenticatedCustomersIndexRoute: typeof AuthenticatedCustomersIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
+  AuthenticatedLiveActivityIndexRoute: typeof AuthenticatedLiveActivityIndexRoute
+  AuthenticatedPartnersIndexRoute: typeof AuthenticatedPartnersIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedViolationsIndexRoute: typeof AuthenticatedViolationsIndexRoute
+  AuthenticatedWorkersIndexRoute: typeof AuthenticatedWorkersIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedBookingsDetailsRoute: AuthenticatedBookingsDetailsRoute,
+  AuthenticatedCustomersDetailsRoute: AuthenticatedCustomersDetailsRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
+  AuthenticatedBlocksIndexRoute: AuthenticatedBlocksIndexRoute,
+  AuthenticatedCampaignsIndexRoute: AuthenticatedCampaignsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
+  AuthenticatedCoverageAreasIndexRoute: AuthenticatedCoverageAreasIndexRoute,
+  AuthenticatedCustomersIndexRoute: AuthenticatedCustomersIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
+  AuthenticatedLiveActivityIndexRoute: AuthenticatedLiveActivityIndexRoute,
+  AuthenticatedPartnersIndexRoute: AuthenticatedPartnersIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedViolationsIndexRoute: AuthenticatedViolationsIndexRoute,
+  AuthenticatedWorkersIndexRoute: AuthenticatedWorkersIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

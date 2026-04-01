@@ -6,6 +6,8 @@ export function IconSidebarInset(props: SVGProps<SVGSVGElement>) {
       data-name='icon-sidebar-inset'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 79.86 51.14'
+      fill='currentColor'
+      stroke='currentColor'
       {...props}
     >
       <rect

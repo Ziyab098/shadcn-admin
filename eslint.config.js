@@ -27,7 +27,7 @@ export default defineConfig(
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
-        { allowConstantExport: true },
+        { allowConstantExport: true, extraHOCs: ['createFileRoute'] },
       ],
       'no-console': 'error',
       'no-unused-vars': 'off',

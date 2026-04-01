@@ -136,7 +136,7 @@ function SidebarProvider({
             } as React.CSSProperties
           }
           className={cn(
-            'group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar',
+            'group/sidebar-wrapper flex h-svh min-h-svh w-full overflow-hidden has-data-[variant=inset]:bg-sidebar has-data-[variant=inset]:bg-[rgb(24,24,27)]',
             className
           )}
           {...props}
@@ -167,7 +167,7 @@ function Sidebar({
       <div
         data-slot='sidebar'
         className={cn(
-          'flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground',
+          'flex h-svh w-(--sidebar-width) flex-col bg-sidebar bg-[rgb(24,24,27)] text-sidebar-foreground',
           className
         )}
         {...props}
@@ -184,7 +184,7 @@ function Sidebar({
           data-sidebar='sidebar'
           data-slot='sidebar'
           data-mobile='true'
-          className='w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden'
+          className='w-(--sidebar-width) bg-sidebar bg-[rgb(24,24,27)] p-0 text-sidebar-foreground [&>button]:hidden'
           style={
             {
               '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
@@ -241,7 +241,7 @@ function Sidebar({
         <div
           data-sidebar='sidebar'
           data-slot='sidebar-inner'
-          className='flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm'
+          className='flex h-full w-full flex-col bg-sidebar bg-[rgb(24,24,27)] group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm'
         >
           {children}
         </div>
@@ -311,7 +311,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot='sidebar-inset'
       className={cn(
-        'relative flex w-full flex-1 flex-col bg-background',
+        'relative flex w-full flex-1 flex-col bg-muted',
         'md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ms-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ms-2',
         className
       )}
@@ -376,7 +376,7 @@ function SidebarContent({ className, ...props }: React.ComponentProps<'div'>) {
       data-slot='sidebar-content'
       data-sidebar='content'
       className={cn(
-        'flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden',
+        'flex min-h-0 flex-1 flex-col gap-2 overflow-x-hidden overflow-y-auto overscroll-contain',
         className
       )}
       {...props}
