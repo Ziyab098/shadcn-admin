@@ -84,7 +84,7 @@ export function CustomerBookingDetailsSheet({
           View booking details and related information
         </SheetDescription>
         <div className='flex items-center justify-between border-b px-4 py-3'>
-          <div className='min-w-0 flex-1 truncate text-sm font-semibold text-muted-foreground'>
+          <div className='min-w-0 flex-1 truncate text-sm font-medium text-muted-foreground'>
             Details
           </div>
         </div>
@@ -96,7 +96,7 @@ export function CustomerBookingDetailsSheet({
                 <div className='mx-auto flex size-12 items-center justify-center rounded-full border text-muted-foreground bg-background'>
                   <Folder className='size-5' />
                 </div>
-                <div className='text-lg font-bold'>{booking.bookingNumber}</div>
+                <div className='text-lg font-medium'>{booking.bookingNumber}</div>
                 <Badge
                   variant='secondary'
                   className={cn(
@@ -239,7 +239,7 @@ export function CustomerBookingDetailsSheet({
               </Section>
 
               <div className='flex items-center justify-between'>
-                <div className='text-lg font-bold text-foreground'>Booking Photos</div>
+                <div className='text-sm font-medium text-muted-foreground'>Booking Photos</div>
                 <div className='flex size-10 flex-none items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-emerald-600'>
                   <Check className='size-5' />
                 </div>
@@ -247,13 +247,13 @@ export function CustomerBookingDetailsSheet({
 
               <div className='grid grid-cols-2 gap-3'>
                 <div className='rounded-lg border border-border/60 bg-background p-4'>
-                  <div className='text-base font-medium'>
+                  <div className='text-base font-normal'>
                     {booking.uploadedBy ?? '+9637202892'}
                   </div>
                   <div className='mt-2 text-sm text-muted-foreground'>Uploaded By</div>
                 </div>
                 <div className='rounded-lg border border-border/60 bg-background p-4'>
-                  <div className='text-base font-medium'>
+                  <div className='text-base font-normal'>
                     {booking.source ?? 'Customer Service'}
                   </div>
                   <div className='mt-2 text-sm text-muted-foreground'>Source</div>
@@ -292,7 +292,7 @@ export function CustomerBookingDetailsSheet({
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className='flex flex-col gap-3'>
-      <div className='text-sm font-semibold text-muted-foreground'>{title}</div>
+      <div className='text-sm font-medium text-muted-foreground'>{title}</div>
       {children}
     </div>
   )
